@@ -1,9 +1,27 @@
-﻿using UsefulMathMethod.config;
+﻿using System;
+using System.Diagnostics;
+using static System.Net.WebRequestMethods;
 
 namespace UsefulMathMethod
 {
     internal class Program
     {
+        public static int lineLength = 100;
+        static void drawLine(int Length)
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                if (i == 5 || i == 31)
+                {
+                    Console.Write("|");
+                }
+                else
+                {
+                    Console.Write("-");
+                }
+            }
+            Console.WriteLine();
+        }
         static void info()
         {
             Console.WriteLine($"App name: Useful commonly used Math");
@@ -12,7 +30,8 @@ namespace UsefulMathMethod
             Console.WriteLine($"Aurthor: Luu Thai Hung");
             Console.WriteLine($"Date created: 2023-10-5");
             Console.WriteLine($"Purpose: This acts as a library for\n" +
-                $"commonly used math formulas/methods");
+                $"commonly used math formulas/methods\n"+
+                $"Every aglorithms are hand-written");
         }
         static void product_of_n()
         {
@@ -155,85 +174,151 @@ namespace UsefulMathMethod
                 length -= 1;
                 sum += kq;
             }
-            Console.Write($"{n}(2) = {sum}(10)");
+            Console.WriteLine($"{n}(2) = {sum}(10)");
+        }
+        static void circle()
+        {
+            double r, p, a;
+            Console.Write("Input r(m) : ");
+            r = Convert.ToDouble(Console.ReadLine());
+            p = 2*Math.PI*r;
+            a = Math.PI*Math.Pow(r,2);
+            Console.WriteLine($"{"Perimater".PadRight(10)} = {Math.Round(p,2)}");
+            Console.WriteLine($"{"Area".PadRight(10)} = {Math.Round(a, 2)}");
+        }
+        static void square()
+        {
+            double a,perimeter,area;
+            Console.Write("Input a(m) : ");
+            a = Convert.ToDouble(Console.ReadLine());
+            perimeter = 4 * a;
+            area = Math.Pow(a,2);
+            Console.WriteLine($"{"Perimater".PadRight(10)} = {Math.Round(perimeter, 2)}");
+            Console.WriteLine($"{"Area".PadRight(10)} = {Math.Round(area, 2)}");
         }
         static void displayMenu(string name)
         {
+            
             Console.WriteLine($"This was made by Luu Thai Hung (C) All rights reserved");
             Console.WriteLine($"Hello, {name}!\nChoose from this menu:");
-            Console.WriteLine($"[{0:D2}] |App infomation");
-            Console.WriteLine($"[{1:D2}] |Sum of n                -- Return S=n(1)+n(2)+...+n(n)");
-            Console.WriteLine($"[{2:D2}] |Product of n            -- Return S=n(1)*n(2)*...*n(n)");
-            Console.WriteLine($"[{3:D2}] |Check prime number      -- Return boolean of whether n is a prime number");
-            Console.WriteLine($"[{4:D2}] |Convert sec to hh:mm:ss -- Return a formatted time string from seconds");
-            Console.WriteLine($"[{5:D2}] |Quadratic equation      -- Return value(s) of a quadratic equation");
-            Console.WriteLine($"[{6:D2}] |Base(10) to base(2)     -- Return a convertted number in base(10) to base(2)");
-            Console.WriteLine($"[{7:D2}] |Base(2) to base(10)     -- Return a convertted number in base(2) to base(10)");
-            Console.WriteLine($"[{-1:D1}]|Exit");
+            Console.WriteLine($"{"No".PadRight(5)}|{"Method's name".PadRight(25)}|{"Method's description"}");
+            drawLine(lineLength);
+            Console.WriteLine($"{"[0]".PadRight(5)}|{"App infomation".PadRight(25)}|Retrieve app's infomation");
+            drawLine(lineLength);
+            Console.WriteLine($"{"[1]".PadRight(5)}|{"Sum of n".PadRight(25)}|Return S=n(1)+n(2)+...+n(n)");
+            drawLine(lineLength);
+            Console.WriteLine($"{"[2]".PadRight(5)}|{"Product of n".PadRight(25)}|Return S=n(1)*n(2)*...*n(n)");
+            drawLine(lineLength);
+            Console.WriteLine($"{"[3]".PadRight(5)}|{"Check prime number".PadRight(25)}|Return boolean of whether n is a prime number");
+            drawLine(lineLength);
+            Console.WriteLine($"{"[4]".PadRight(5)}|{"Convert sec(s) to time".PadRight(25)}|Return a formatted time string from seconds");
+            drawLine(lineLength);
+            Console.WriteLine($"{"[5]".PadRight(5)}|{"Quadratic equation".PadRight(25)}|Return value(s) of a quadratic equation");
+            drawLine(lineLength);
+            Console.WriteLine($"{"[6]".PadRight(5)}|{"Base(10) to base(2)".PadRight(25)}|Return a convertted number in base(10) to base(2)");
+            drawLine(lineLength);
+            Console.WriteLine($"{"[7]".PadRight(5)}|{"Base(2) to base(10)".PadRight(25)}|Return a convertted number in base(2) to base(10)");
+            drawLine(lineLength);
+            Console.WriteLine($"{"[8]".PadRight(5)}|{"Circle".PadRight(25)}|Return perimeter, area of a circle");
+            drawLine(lineLength);
+            Console.WriteLine($"{"[9]".PadRight(5)}|{"Square".PadRight(25)}|Return perimeter, area of a square");
+            drawLine(lineLength);
+            Console.WriteLine($"{"[x]".PadRight(5)}|{"Exit".PadRight(25)}|Close the application");
+            drawLine(lineLength);
             Console.Write("Your choice: ");
         }
         static void Main(string[] args)
         {
-            int choice;
+            string choice;
             string name = System.Environment.UserName;
-            double test = 16;
             
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine(test / 20);
                 displayMenu(name);
                 try
                 {
-                    choice = Convert.ToInt32(Console.ReadLine());
+                    choice = Console.ReadLine();
                     switch (choice)
                     {
-                        case 0:
+                        case "ytb":
                             Console.Clear();
-                            info();
+                            Console.WriteLine("Directing to youtube.com");
+                            var psi = new ProcessStartInfo("chrome.exe");
+                            psi.Arguments = "www.google.com";
+                            Process.Start(psi);
+                            Console.WriteLine("Press any key to navigate back to menu");
                             Console.ReadLine();
                             break;
-                        case -1:
+                        case "0":
+                            Console.Clear();
+                            info();
+                            drawLine(lineLength);
+                            Console.WriteLine("Press any key to navigate back to menu");
+                            Console.ReadLine();
+                            break;
+                        case "x":
                             Console.WriteLine($"Goodbye {name}! Hope to see you again!");
                             Environment.Exit(0);
                             break;
-                        case 1:
+                        case "1":
                             Console.Clear();
                             sum_of_n();
+                            drawLine(lineLength);
                             Console.ReadLine();
                             break;
-                        case 2:
+                        case "2":
                             Console.Clear();
                             product_of_n();
+                            drawLine(lineLength);
                             Console.ReadLine();
                             break;
-                        case 3:
+                        case "3":
                             Console.Clear();
                             checkPrime();
+                            drawLine(lineLength);
                             Console.WriteLine("Press any key to navigate back to menu");
                             Console.ReadLine();
                             break;
-                        case 4:
+                        case "4":
                             Console.Clear();
                             convert_sec_to_hh_mm_ss();
+                            drawLine(lineLength);
                             Console.WriteLine("Press any key to navigate back to menu");
                             Console.ReadLine();
                             break;
-                        case 5:
+                        case "5":
                             Console.Clear();
                             quadratic_equation();
+                            drawLine(lineLength);
                             Console.WriteLine("Press any key to navigate back to menu");
                             Console.ReadLine();
                             break;
-                        case 6:
+                        case "6":
                             Console.Clear();
                             convert_10_to_2();
+                            drawLine(lineLength);
                             Console.WriteLine("Press any key to navigate back to menu");
                             Console.ReadLine();
                             break;
-                        case 7:
+                        case "7":
                             Console.Clear();
                             convert_2_to_10();
+                            drawLine(lineLength);
+                            Console.WriteLine("Press any key to navigate back to menu");
+                            Console.ReadLine();
+                            break;
+                        case "8":
+                            Console.Clear();
+                            circle();
+                            drawLine(lineLength);
+                            Console.WriteLine("Press any key to navigate back to menu");
+                            Console.ReadLine();
+                            break;
+                        case "9":
+                            Console.Clear();
+                            square();
+                            drawLine(lineLength);
                             Console.WriteLine("Press any key to navigate back to menu");
                             Console.ReadLine();
                             break;
