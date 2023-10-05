@@ -7,7 +7,7 @@ namespace UsefulMathMethod
         static void info()
         {
             Console.WriteLine($"App name: Useful commonly used Math");
-            Console.WriteLine($"App version: v1.2");
+            Console.WriteLine($"App version: v1.3");
             Console.WriteLine($"Updated date: 2023-10-5");
             Console.WriteLine($"Aurthor: Luu Thai Hung");
             Console.WriteLine($"Date created: 2023-10-5");
