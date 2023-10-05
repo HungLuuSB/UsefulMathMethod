@@ -7,7 +7,7 @@ namespace UsefulMathMethod
         static void info()
         {
             Console.WriteLine($"App name: Useful commonly used Math");
-            Console.WriteLine($"App version: v1.1");
+            Console.WriteLine($"App version: v1.2");
             Console.WriteLine($"Updated date: 2023-10-5");
             Console.WriteLine($"Aurthor: Luu Thai Hung");
             Console.WriteLine($"Date created: 2023-10-5");
@@ -123,6 +123,40 @@ namespace UsefulMathMethod
 
             }
         }
+        static void convert_10_to_2()
+        {
+            Console.Write("Input n(10): ");
+            int n = Convert.ToInt32(Console.ReadLine());
+            int old_n = n;
+            string result = "";
+            while (n >= 1)
+            {
+                int digit = n % 2;
+                result = result + Convert.ToString(digit);
+                n = n/2;
+            }
+            Console.Write($"{old_n}(1) = ");
+            for (int i = result.Length-1; i >= 0; i--)
+            {
+                Console.Write(result[i]);
+            }
+            Console.WriteLine($"(2)");
+        }
+        static void convert_2_to_10()
+        {
+            double sum;
+            sum = 0;
+            Console.Write("Input n(2): ");
+            string n = Console.ReadLine();
+            int length = n.Length - 1;
+            for (int i = 0; i < n.Length; i++)
+            {
+                double kq = Char.GetNumericValue(n[i]) * Math.Pow(2,length);
+                length -= 1;
+                sum += kq;
+            }
+            Console.Write($"{n}(2) = {sum}(10)");
+        }
         static void displayMenu(string name)
         {
             Console.WriteLine($"This was made by Luu Thai Hung (C) All rights reserved");
@@ -133,6 +167,8 @@ namespace UsefulMathMethod
             Console.WriteLine($"[{3:D2}] |Check prime number      -- Return boolean of whether n is a prime number");
             Console.WriteLine($"[{4:D2}] |Convert sec to hh:mm:ss -- Return a formatted time string from seconds");
             Console.WriteLine($"[{5:D2}] |Quadratic equation      -- Return value(s) of a quadratic equation");
+            Console.WriteLine($"[{6:D2}] |Base(10) to base(2)     -- Return a convertted number in base(10) to base(2)");
+            Console.WriteLine($"[{7:D2}] |Base(2) to base(10)     -- Return a convertted number in base(2) to base(10)");
             Console.WriteLine($"[{-1:D1}]|Exit");
             Console.Write("Your choice: ");
         }
@@ -140,9 +176,12 @@ namespace UsefulMathMethod
         {
             int choice;
             string name = System.Environment.UserName;
+            double test = 16;
+            
             while (true)
             {
                 Console.Clear();
+                Console.WriteLine(test / 20);
                 displayMenu(name);
                 try
                 {
@@ -186,6 +225,18 @@ namespace UsefulMathMethod
                             Console.WriteLine("Press any key to navigate back to menu");
                             Console.ReadLine();
                             break;
+                        case 6:
+                            Console.Clear();
+                            convert_10_to_2();
+                            Console.WriteLine("Press any key to navigate back to menu");
+                            Console.ReadLine();
+                            break;
+                        case 7:
+                            Console.Clear();
+                            convert_2_to_10();
+                            Console.WriteLine("Press any key to navigate back to menu");
+                            Console.ReadLine();
+                            break;
                         default:
                             Console.WriteLine("Invail choice\nPress any key to try again");
                             Console.ReadLine();
@@ -194,7 +245,8 @@ namespace UsefulMathMethod
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Only accepts integer. Press any key to try again!");
+                    Console.WriteLine("Error! Press any key to try again!");
+                    Console.WriteLine(e.ToString());
                     Console.ReadLine();
                 }
             }
