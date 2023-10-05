@@ -7,7 +7,8 @@ namespace UsefulMathMethod
         static void info()
         {
             Console.WriteLine($"App name: Useful commonly used Math");
-            Console.WriteLine($"App version: v1.0");
+            Console.WriteLine($"App version: v1.1");
+            Console.WriteLine($"Updated date: 2023-10-5");
             Console.WriteLine($"Aurthor: Luu Thai Hung");
             Console.WriteLine($"Date created: 2023-10-5");
             Console.WriteLine($"Purpose: This acts as a library for\n" +
@@ -55,13 +56,12 @@ namespace UsefulMathMethod
             }
             Console.WriteLine($" = {sum}");
         }
-
         static void checkPrime()
         {
             int n = 0;
             Console.Write("Input n: ");
             n = Convert.ToInt32(Console.ReadLine());
-            for (int i = 2; i < n; i++)
+            for (int i = 2; i < Math.Sqrt(n); i++)
             {
                 if (n % i == 0)
                 {
@@ -71,7 +71,6 @@ namespace UsefulMathMethod
             }
             Console.WriteLine($"{n} is a prime number");
         }
-
         static void convert_sec_to_hh_mm_ss()
         {
             int sec;
@@ -82,6 +81,48 @@ namespace UsefulMathMethod
             int seconds = sec % 3600 % 60;
             Console.WriteLine($"{hours:00}:{minutes:00}:{seconds:00}");
         }
+        static void quadratic_equation()
+        {
+            double a, b, c, delta; //ax^2 + bx + c = 0
+            Console.Write("Input a: ");
+            a = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Input b: ");
+            b = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Input c: ");
+            c = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine($"{a}x^2{b}x{c}=0");
+            if (a == 0)
+            {
+                if(b != 0)
+                {
+                    Console.WriteLine($"x = {-c/b}");
+                }
+                else
+                {
+                    Console.WriteLine($"Infinite");
+                }
+            }
+            else
+            {
+                delta = Math.Pow(b,2) - 4 * a * c;
+                Console.WriteLine($"Delta = {delta}");
+                if (delta < 0)
+                {
+                    Console.WriteLine($"No value");
+                }else if (delta > 0)
+                {
+                    double x1 = (-b + Math.Sqrt(delta)) / (2 * a);
+                    double x2 = (-b - Math.Sqrt(delta)) / (2 * a);
+                    Console.WriteLine($"2 seperated values of x:\nx1 = {x1}\nx2 = {x2}");
+                }
+                else
+                {
+                    Console.WriteLine($"2 value of x:\nx1 = x2 = {(-b) / 2 * a}");
+
+                }
+
+            }
+        }
         static void displayMenu(string name)
         {
             Console.WriteLine($"This was made by Luu Thai Hung (C) All rights reserved");
@@ -91,13 +132,14 @@ namespace UsefulMathMethod
             Console.WriteLine($"[{2:D2}] |Product of n            -- Return S=n(1)*n(2)*...*n(n)");
             Console.WriteLine($"[{3:D2}] |Check prime number      -- Return boolean of whether n is a prime number");
             Console.WriteLine($"[{4:D2}] |Convert sec to hh:mm:ss -- Return a formatted time string from seconds");
-            Console.WriteLine($"[{-1:D1}] Exit");
+            Console.WriteLine($"[{5:D2}] |Quadratic equation      -- Return value(s) of a quadratic equation");
+            Console.WriteLine($"[{-1:D1}]|Exit");
             Console.Write("Your choice: ");
         }
         static void Main(string[] args)
         {
             int choice;
-            string name = System.Environment.MachineName;
+            string name = System.Environment.UserName;
             while (true)
             {
                 Console.Clear();
@@ -135,6 +177,12 @@ namespace UsefulMathMethod
                         case 4:
                             Console.Clear();
                             convert_sec_to_hh_mm_ss();
+                            Console.WriteLine("Press any key to navigate back to menu");
+                            Console.ReadLine();
+                            break;
+                        case 5:
+                            Console.Clear();
+                            quadratic_equation();
                             Console.WriteLine("Press any key to navigate back to menu");
                             Console.ReadLine();
                             break;
