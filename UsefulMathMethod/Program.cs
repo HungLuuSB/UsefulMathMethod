@@ -196,51 +196,102 @@ namespace UsefulMathMethod
             Console.WriteLine($"{"Perimater".PadRight(10)} = {Math.Round(perimeter, 2)}");
             Console.WriteLine($"{"Area".PadRight(10)} = {Math.Round(area, 2)}");
         }
-        static void displayMenu(string name)
+        static void displayMenu(int index_page, string name)
         {
-            
             Console.WriteLine($"This was made by Luu Thai Hung (C) All rights reserved");
             Console.WriteLine($"Hello, {name}!\nChoose from this menu:");
-            Console.WriteLine($"{"No".PadRight(5)}|{"Method's name".PadRight(25)}|{"Method's description"}");
-            drawLine(lineLength);
-            Console.WriteLine($"{"[0]".PadRight(5)}|{"App infomation".PadRight(25)}|Retrieve app's infomation");
-            drawLine(lineLength);
-            Console.WriteLine($"{"[1]".PadRight(5)}|{"Sum of n".PadRight(25)}|Return S=n(1)+n(2)+...+n(n)");
-            drawLine(lineLength);
-            Console.WriteLine($"{"[2]".PadRight(5)}|{"Product of n".PadRight(25)}|Return S=n(1)*n(2)*...*n(n)");
-            drawLine(lineLength);
-            Console.WriteLine($"{"[3]".PadRight(5)}|{"Check prime number".PadRight(25)}|Return boolean of whether n is a prime number");
-            drawLine(lineLength);
-            Console.WriteLine($"{"[4]".PadRight(5)}|{"Convert sec(s) to time".PadRight(25)}|Return a formatted time string from seconds");
-            drawLine(lineLength);
-            Console.WriteLine($"{"[5]".PadRight(5)}|{"Quadratic equation".PadRight(25)}|Return value(s) of a quadratic equation");
-            drawLine(lineLength);
-            Console.WriteLine($"{"[6]".PadRight(5)}|{"Base(10) to base(2)".PadRight(25)}|Return a convertted number in base(10) to base(2)");
-            drawLine(lineLength);
-            Console.WriteLine($"{"[7]".PadRight(5)}|{"Base(2) to base(10)".PadRight(25)}|Return a convertted number in base(2) to base(10)");
-            drawLine(lineLength);
-            Console.WriteLine($"{"[8]".PadRight(5)}|{"Circle".PadRight(25)}|Return perimeter, area of a circle");
-            drawLine(lineLength);
-            Console.WriteLine($"{"[9]".PadRight(5)}|{"Square".PadRight(25)}|Return perimeter, area of a square");
-            drawLine(lineLength);
-            Console.WriteLine($"{"[x]".PadRight(5)}|{"Exit".PadRight(25)}|Close the application");
-            drawLine(lineLength);
-            Console.Write("Your choice: ");
+            Console.WriteLine($"Type +/- to change page");
+            Console.WriteLine($"{index_page}/2");
+            switch (index_page){
+                case 1:
+                    Console.WriteLine($"{"No".PadRight(5)}|{"Method's name".PadRight(25)}|{"Method's description"}");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[0]".PadRight(5)}|{"App infomation".PadRight(25)}|Retrieve app's infomation");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[1]".PadRight(5)}|{"Sum of n".PadRight(25)}|Return S=n(1)+n(2)+...+n(n)");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[2]".PadRight(5)}|{"Product of n".PadRight(25)}|Return S=n(1)*n(2)*...*n(n)");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[3]".PadRight(5)}|{"Check prime number".PadRight(25)}|Return boolean of whether n is a prime number");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[4]".PadRight(5)}|{"Convert sec(s) to time".PadRight(25)}|Return a formatted time string from seconds");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[5]".PadRight(5)}|{"Quadratic equation".PadRight(25)}|Return value(s) of a quadratic equation");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[6]".PadRight(5)}|{"Base(10) to base(2)".PadRight(25)}|Return a convertted number in base(10) to base(2)");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[7]".PadRight(5)}|{"Base(2) to base(10)".PadRight(25)}|Return a convertted number in base(2) to base(10)");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[8]".PadRight(5)}|{"Circle".PadRight(25)}|Return perimeter, area of a circle");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[9]".PadRight(5)}|{"Square".PadRight(25)}|Return perimeter, area of a square");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[x]".PadRight(5)}|{"Exit".PadRight(25)}|Close the application");
+                    drawLine(lineLength);
+                    break;
+                case 2:
+                    Console.WriteLine($"{"No".PadRight(5)}|{"Method's name".PadRight(25)}|{"Method's description"}");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[10]".PadRight(5)}|{"".PadRight(25)}|");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[11]".PadRight(5)}|{"".PadRight(25)}|");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[12]".PadRight(5)}|{"".PadRight(25)}|");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[13]".PadRight(5)}|{"".PadRight(25)}|");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[14]".PadRight(5)}|{"".PadRight(25)}|");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[15]".PadRight(5)}|{"".PadRight(25)}|");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[16]".PadRight(5)}|{"".PadRight(25)}|");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[17]".PadRight(5)}|{"".PadRight(25)}|");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[18]".PadRight(5)}|{"".PadRight(25)}|");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[19]".PadRight(5)}|{"".PadRight(25)}|");
+                    drawLine(lineLength);
+                    Console.WriteLine($"{"[x]".PadRight(5)}|{"Exit".PadRight(25)}|Close the application");
+                    break;
+                default:
+                    Console.Clear();
+                    displayMenu(1, name);
+                    break;
+            }
+            
+            
         }
         static void Main(string[] args)
         {
             string choice;
             string name = System.Environment.UserName;
-            
+            int index_page = 1;
+            int max_page = 2;
             while (true)
             {
+                if (index_page < max_page)
+                {
+                    index_page = 1;
+                }
+                else
+                {
+                    index_page = max_page;
+                }
                 Console.Clear();
-                displayMenu(name);
+                displayMenu(index_page, name);
+                Console.Write("Your choice: ");
                 try
                 {
                     choice = Console.ReadLine();
                     switch (choice)
                     {
+                        case "+":
+                            index_page++;
+                            break;
+                        case "-":
+                            index_page--;
+                            break;
                         case "ytb":
                             Console.Clear();
                             Console.WriteLine("Directing to youtube.com");
@@ -330,8 +381,9 @@ namespace UsefulMathMethod
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Error! Press any key to try again!");
                     Console.WriteLine(e.ToString());
+                    drawLine(lineLength);
+                    Console.WriteLine("Error! Press any key to try again!");
                     Console.ReadLine();
                 }
             }
