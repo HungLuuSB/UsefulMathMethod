@@ -63,8 +63,8 @@ namespace UsefulMathMethod
         public static void info()
         {
             Console.WriteLine($"App name: Useful commonly used Math");
-            Console.WriteLine($"App version: v1.3");
-            Console.WriteLine($"Updated date: 2023-10-5");
+            Console.WriteLine($"App version: v1.3.1");
+            Console.WriteLine($"Updated date: 2023-10-6");
             Console.WriteLine($"Aurthor: Luu Thai Hung");
             Console.WriteLine($"Date created: 2023-10-5");
             Console.WriteLine($"Purpose: This acts as a library for\n" +
