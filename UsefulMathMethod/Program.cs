@@ -1,11 +1,30 @@
 ﻿using System;
+using StackExchange.Redis;
 using System.Diagnostics;
+using System.Data.SqlTypes;
 using static System.Net.WebRequestMethods;
+using MySql.Data.MySqlClient;
 
 namespace UsefulMathMethod
 {
     internal class Program
     {
+        static readonly ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("redis-15499.c299.asia-northeast1-1.gce.cloud.redislabs.com:15499,password=jgrA7tDZBR9QHTnXEe6H6S3UfnNpszQM");
+        static string _username;
+        public static bool checkUser(string username, string password)
+        {
+            var db = redis.GetDatabase();
+            const string key = "User";
+            if (db.HashGet(key, "hungluu12") == password)
+            {
+                _username = username;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public static int lineLength = 100;
         static void drawLine(int Length)
         {
@@ -22,7 +41,26 @@ namespace UsefulMathMethod
             }
             Console.WriteLine();
         }
-        static void info()
+        static void drawResultLine(int Length)
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                Console.Write("-");
+            }
+            Console.WriteLine();
+        }
+        static bool checkTriangle(double a, double b, double c)
+        {
+            if (a + b > c && b + c > a && a + c > b)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static void info()
         {
             Console.WriteLine($"App name: Useful commonly used Math");
             Console.WriteLine($"App version: v1.3");
@@ -32,8 +70,8 @@ namespace UsefulMathMethod
             Console.WriteLine($"Purpose: This acts as a library for\n" +
                 $"commonly used math formulas/methods\n"+
                 $"Every aglorithms are hand-written");
-        }
-        static void product_of_n()
+        }//0
+        public static void product_of_n()
         {
             int product = 1;
             Console.Write("Input n: ");
@@ -53,8 +91,8 @@ namespace UsefulMathMethod
                 product *= i;
             }
             Console.WriteLine($" = {product}");
-        }
-        static void sum_of_n()
+        }//1
+        public static void sum_of_n()
         {
             int sum = 0;
             Console.Write("Input n: ");
@@ -74,8 +112,8 @@ namespace UsefulMathMethod
                 sum += i;
             }
             Console.WriteLine($" = {sum}");
-        }
-        static void checkPrime()
+        }//2
+        public static void checkPrime()
         {
             int n = 0;
             Console.Write("Input n: ");
@@ -89,8 +127,8 @@ namespace UsefulMathMethod
                 }
             }
             Console.WriteLine($"{n} is a prime number");
-        }
-        static void convert_sec_to_hh_mm_ss()
+        }//3
+        public static void convert_sec_to_hh_mm_ss()
         {
             int sec;
             Console.Write("Input time(s): ");
@@ -99,8 +137,8 @@ namespace UsefulMathMethod
             int minutes = sec % 3600 / 60;
             int seconds = sec % 3600 % 60;
             Console.WriteLine($"{hours:00}:{minutes:00}:{seconds:00}");
-        }
-        static void quadratic_equation()
+        }//4
+        public static void quadratic_equation()
         {
             double a, b, c, delta; //ax^2 + bx + c = 0
             Console.Write("Input a: ");
@@ -141,8 +179,8 @@ namespace UsefulMathMethod
                 }
 
             }
-        }
-        static void convert_10_to_2()
+        }//5
+        public static void convert_10_to_2()
         {
             Console.Write("Input n(10): ");
             int n = Convert.ToInt32(Console.ReadLine());
@@ -160,8 +198,8 @@ namespace UsefulMathMethod
                 Console.Write(result[i]);
             }
             Console.WriteLine($"(2)");
-        }
-        static void convert_2_to_10()
+        }//6
+        public static void convert_2_to_10()
         {
             double sum;
             sum = 0;
@@ -175,8 +213,8 @@ namespace UsefulMathMethod
                 sum += kq;
             }
             Console.WriteLine($"{n}(2) = {sum}(10)");
-        }
-        static void circle()
+        }//7
+        public static void circle()
         {
             double r, p, a;
             Console.Write("Input r(m) : ");
@@ -185,8 +223,8 @@ namespace UsefulMathMethod
             a = Math.PI*Math.Pow(r,2);
             Console.WriteLine($"{"Perimater".PadRight(10)} = {Math.Round(p,2)}");
             Console.WriteLine($"{"Area".PadRight(10)} = {Math.Round(a, 2)}");
-        }
-        static void square()
+        }//8
+        public static void square()
         {
             double a,perimeter,area;
             Console.Write("Input a(m) : ");
@@ -195,13 +233,31 @@ namespace UsefulMathMethod
             area = Math.Pow(a,2);
             Console.WriteLine($"{"Perimater".PadRight(10)} = {Math.Round(perimeter, 2)}");
             Console.WriteLine($"{"Area".PadRight(10)} = {Math.Round(area, 2)}");
-        }
-        static void displayMenu(int index_page, string name)
+        }//9
+        public static void triangle()
+        {
+            double a, b, c;
+            Console.Write("Input a: ");
+            a = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Input b: ");
+            b = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Input c: ");
+            c = Convert.ToDouble(Console.ReadLine());
+
+            if (checkTriangle(a, b, c) == true)
+            {
+                Console.WriteLine($"Can make a triangle out of three values determined :{a},{b},{c}");
+            } else
+            {
+                Console.WriteLine($"Can not make a triangle out of three values determined :{a},{b},{c}");
+            }
+        }//10
+        static void displayMenu(int index_page, int max_page, string name)
         {
             Console.WriteLine($"This was made by Luu Thai Hung (C) All rights reserved");
             Console.WriteLine($"Hello, {name}!\nChoose from this menu:");
             Console.WriteLine($"Type +/- to change page");
-            Console.WriteLine($"{index_page}/2");
+            Console.WriteLine($"{index_page}/{max_page}");
             switch (index_page){
                 case 1:
                     Console.WriteLine($"{"No".PadRight(5)}|{"Method's name".PadRight(25)}|{"Method's description"}");
@@ -232,7 +288,7 @@ namespace UsefulMathMethod
                 case 2:
                     Console.WriteLine($"{"No".PadRight(5)}|{"Method's name".PadRight(25)}|{"Method's description"}");
                     drawLine(lineLength);
-                    Console.WriteLine($"{"[10]".PadRight(5)}|{"".PadRight(25)}|");
+                    Console.WriteLine($"{"[10]".PadRight(5)}|{"Check triangle".PadRight(25)}|Check if you can make a triangle from 3 values");
                     drawLine(lineLength);
                     Console.WriteLine($"{"[11]".PadRight(5)}|{"".PadRight(25)}|");
                     drawLine(lineLength);
@@ -256,137 +312,173 @@ namespace UsefulMathMethod
                     break;
                 default:
                     Console.Clear();
-                    displayMenu(1, name);
+                    displayMenu(1, max_page,name);
                     break;
             }
             
             
         }
+        static void displayLogin()
+        {
+            Console.WriteLine("Login in");
+            Console.Write("[Username]: ");
+            string username = Console.ReadLine();
+            Console.Write("[Password]: ");
+            string password = Console.ReadLine();
+            
+            if (checkUser(username, password) != true)
+            {
+                Console.WriteLine("Wrong username/password");
+                Console.ReadLine();
+                displayLogin();
+            }
+        }
         static void Main(string[] args)
         {
-            string choice;
-            string name = System.Environment.UserName;
-            int index_page = 1;
-            int max_page = 2;
-            while (true)
+            Console.WriteLine("Connecting to server...");
+            try
             {
-                if (index_page < max_page)
-                {
-                    index_page = 1;
-                }
-                else
-                {
-                    index_page = max_page;
-                }
                 Console.Clear();
-                displayMenu(index_page, name);
-                Console.Write("Your choice: ");
-                try
+                displayLogin();
+                string choice;
+                string name = _username;
+                int index_page = 1;
+                int max_page = 2;
+                while (true)
                 {
-                    choice = Console.ReadLine();
-                    switch (choice)
+                    if (index_page < max_page)
                     {
-                        case "+":
-                            index_page++;
-                            break;
-                        case "-":
-                            index_page--;
-                            break;
-                        case "ytb":
-                            Console.Clear();
-                            Console.WriteLine("Directing to youtube.com");
-                            var psi = new ProcessStartInfo("chrome.exe");
-                            psi.Arguments = "www.google.com";
-                            Process.Start(psi);
-                            Console.WriteLine("Press any key to navigate back to menu");
-                            Console.ReadLine();
-                            break;
-                        case "0":
-                            Console.Clear();
-                            info();
-                            drawLine(lineLength);
-                            Console.WriteLine("Press any key to navigate back to menu");
-                            Console.ReadLine();
-                            break;
-                        case "x":
-                            Console.WriteLine($"Goodbye {name}! Hope to see you again!");
-                            Environment.Exit(0);
-                            break;
-                        case "1":
-                            Console.Clear();
-                            sum_of_n();
-                            drawLine(lineLength);
-                            Console.ReadLine();
-                            break;
-                        case "2":
-                            Console.Clear();
-                            product_of_n();
-                            drawLine(lineLength);
-                            Console.ReadLine();
-                            break;
-                        case "3":
-                            Console.Clear();
-                            checkPrime();
-                            drawLine(lineLength);
-                            Console.WriteLine("Press any key to navigate back to menu");
-                            Console.ReadLine();
-                            break;
-                        case "4":
-                            Console.Clear();
-                            convert_sec_to_hh_mm_ss();
-                            drawLine(lineLength);
-                            Console.WriteLine("Press any key to navigate back to menu");
-                            Console.ReadLine();
-                            break;
-                        case "5":
-                            Console.Clear();
-                            quadratic_equation();
-                            drawLine(lineLength);
-                            Console.WriteLine("Press any key to navigate back to menu");
-                            Console.ReadLine();
-                            break;
-                        case "6":
-                            Console.Clear();
-                            convert_10_to_2();
-                            drawLine(lineLength);
-                            Console.WriteLine("Press any key to navigate back to menu");
-                            Console.ReadLine();
-                            break;
-                        case "7":
-                            Console.Clear();
-                            convert_2_to_10();
-                            drawLine(lineLength);
-                            Console.WriteLine("Press any key to navigate back to menu");
-                            Console.ReadLine();
-                            break;
-                        case "8":
-                            Console.Clear();
-                            circle();
-                            drawLine(lineLength);
-                            Console.WriteLine("Press any key to navigate back to menu");
-                            Console.ReadLine();
-                            break;
-                        case "9":
-                            Console.Clear();
-                            square();
-                            drawLine(lineLength);
-                            Console.WriteLine("Press any key to navigate back to menu");
-                            Console.ReadLine();
-                            break;
-                        default:
-                            Console.WriteLine("Invail choice\nPress any key to try again");
-                            Console.ReadLine();
-                            break;
+                        index_page = 1;
+                    }
+                    else
+                    {
+                        index_page = max_page;
+                    }
+                    Console.Clear();
+                    displayMenu(index_page, max_page, name);
+                    Console.Write("Your choice: ");
+                    try
+                    {
+                        choice = Console.ReadLine();
+                        switch (choice)
+                        {
+                            case "+":
+                                index_page++;
+                                break;
+                            case "-":
+                                index_page--;
+                                break;
+                            case "ytb":
+                                Console.Clear();
+                                Console.WriteLine("Directing to youtube.com");
+                                var psi = new ProcessStartInfo("chrome.exe");
+                                psi.Arguments = "www.google.com";
+                                Process.Start(psi);
+                                Console.WriteLine("Press any key to navigate back to menu");
+                                Console.ReadLine();
+                                break;
+                            case "0":
+                                Console.Clear();
+                                info();
+                                drawResultLine(lineLength);
+                                Console.WriteLine("Press any key to navigate back to menu");
+                                Console.ReadLine();
+                                break;
+                            case "x":
+                                Console.WriteLine($"Goodbye {name}! Hope to see you again!");
+                                Environment.Exit(0);
+                                break;
+                            case "1":
+                                Console.Clear();
+                                sum_of_n();
+                                drawResultLine(lineLength);
+                                Console.ReadLine();
+                                break;
+                            case "2":
+                                Console.Clear();
+                                product_of_n();
+                                drawResultLine(lineLength);
+                                Console.ReadLine();
+                                break;
+                            case "3":
+                                Console.Clear();
+                                checkPrime();
+                                drawResultLine(lineLength);
+                                Console.WriteLine("Press any key to navigate back to menu");
+                                Console.ReadLine();
+                                break;
+                            case "4":
+                                Console.Clear();
+                                convert_sec_to_hh_mm_ss();
+                                drawResultLine(lineLength);
+                                Console.WriteLine("Press any key to navigate back to menu");
+                                Console.ReadLine();
+                                break;
+                            case "5":
+                                Console.Clear();
+                                quadratic_equation();
+                                drawResultLine(lineLength);
+                                Console.WriteLine("Press any key to navigate back to menu");
+                                Console.ReadLine();
+                                break;
+                            case "6":
+                                Console.Clear();
+                                convert_10_to_2();
+                                drawResultLine(lineLength);
+                                Console.WriteLine("Press any key to navigate back to menu");
+                                Console.ReadLine();
+                                break;
+                            case "7":
+                                Console.Clear();
+                                convert_2_to_10();
+                                drawResultLine(lineLength);
+                                Console.WriteLine("Press any key to navigate back to menu");
+                                Console.ReadLine();
+                                break;
+                            case "8":
+                                Console.Clear();
+                                circle();
+                                drawResultLine(lineLength);
+                                Console.WriteLine("Press any key to navigate back to menu");
+                                Console.ReadLine();
+                                break;
+                            case "9":
+                                Console.Clear();
+                                square();
+                                drawResultLine(lineLength);
+                                Console.WriteLine("Press any key to navigate back to menu");
+                                Console.ReadLine();
+                                break;
+                            case "10":
+                                Console.Clear();
+                                triangle();
+                                drawResultLine(lineLength);
+                                Console.WriteLine("Press any key to navigate back to menu");
+                                Console.ReadLine();
+                                break;
+                            default:
+                                Console.WriteLine("Invail choice!P ress any key to try again");
+                                Console.ReadLine();
+                                break;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.ToString());
+                        drawResultLine(lineLength);
+                        Console.WriteLine("Error! Press any key to try again!");
+                        Console.ReadLine();
                     }
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                    drawLine(lineLength);
-                    Console.WriteLine("Error! Press any key to try again!");
-                    Console.ReadLine();
-                }
+
             }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                Console.WriteLine("Couldn't establish connection");
+                Console.ReadLine();
+                Environment.Exit(0);
+            }
+            
         }
     }
 }
